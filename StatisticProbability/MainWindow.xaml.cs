@@ -104,6 +104,7 @@ namespace StatisticProbability
             lineAnim.To = 50;
             contentLine.BeginAnimation(HeightProperty, lineAnim);
 
+
             ThicknessAnimation lineAnimMargin = new ThicknessAnimation
             {
                 From = averageLine.Margin,
