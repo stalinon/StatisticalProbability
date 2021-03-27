@@ -3,18 +3,29 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:StatisticProbability"
         xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="StatisticProbability.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" MinWidth="800" MinHeight="450" MaxWidth="1280" MaxHeight="720">
-    <Window.Resources>
-        <AlternationConverter x:Key="AlternationConverter"/>
-    </Window.Resources>
-    <Grid MinWidth="800" MinHeight="450" Margin="0,0,0,3">
+        Title="MainWindow" Height="450" Width="800" MinWidth="800" MinHeight="450" MaxWidth="900" MaxHeight="475">
+
+    <Grid 
+        MinWidth="800" 
+        MinHeight="450" 
+        Margin="0,0,0,3">
+
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Name ="InputColumn"  Width="5*" MaxWidth="280"/>
-            <ColumnDefinition Name ="OutputColumn"  Width="13*" MaxWidth="950"/>
+
+            <ColumnDefinition 
+                Name ="InputColumn" 
+                Width="5*" 
+                MaxWidth="280"/>
+
+            <ColumnDefinition 
+                Name ="OutputColumn" 
+                Width="13*" 
+                MaxWidth="950"/>
+
         </Grid.ColumnDefinitions>
+
         <Label 
             x:Name="label" 
             Content="Выберите вид опыта:" 
@@ -23,15 +34,20 @@
             VerticalAlignment="Top"
             Width="200"
             Height="27"/>
+
         <ComboBox 
             x:Name ="TypeOfExperiment"
             HorizontalAlignment="Stretch" 
             Margin="10,42,0,0" 
             VerticalAlignment="Top"
             Width="200" DropDownClosed="ComboBox_Closing">
+
             <System:String>Coin</System:String>
+
             <System:String>Dice</System:String>
+
         </ComboBox>
+
         <Slider 
             x:Name ="NumOfExperiments" 
             HorizontalAlignment="Stretch"
@@ -40,8 +56,8 @@
             Maximum="500000" 
             Minimum="50000"
             IsSnapToTickEnabled="True"
-            TickFrequency="1"
-            />
+            TickFrequency="1"/>
+
         <Label 
             Grid.Column="0"
             Content="Число опытов:" 
@@ -49,6 +65,7 @@
             Margin="10,70,0,0"
             VerticalAlignment="Top"
             Height="27"/>
+
         <Button 
             Grid.Column="0"
             Content="Запуск"
@@ -56,47 +73,100 @@
             Margin="90,0,90,51" 
             VerticalAlignment="Bottom" 
             Click="Button_Click"/>
+
         <TextBox 
             x:Name ="TextBox"
             Grid.Column="1"
             HorizontalAlignment="Stretch"
-            Margin="10,10,0,0" 
+            Margin="10,42,10,0" 
             TextWrapping="Wrap"
-            Text="" 
-            VerticalAlignment="Stretch"/>
+            Text=""
+            VerticalAlignment="Top" 
+            Height="76"/>
+
         <Label 
             Content="{Binding Value, ElementName=NumOfExperiments, StringFormat=\{0:D\}}"
             HorizontalAlignment="Left"
             Margin="103,70,0,0"
             VerticalAlignment="Top" 
             Height="26"/>
-        <Canvas 
+
+        <Canvas Background="White" 
             Name="CanvasDice"
             HorizontalAlignment="Stretch" 
             Height="220" 
-            Margin="10,140,0,0" 
+            Margin="16,138,6,0" 
             VerticalAlignment="Top" 
-            Width="200" Visibility="Visible">
+            Width="200"
+            Grid.Column="0" Visibility="Hidden">
 
             <Label 
-            Grid.Column="0"
-            Content="Выпавшее очко:" 
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            Height="27" 
-            Canvas.Top="0"/>
+                Grid.Column="0"
+                Content="Выпавшее очко:" 
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Height="27" 
+                Canvas.Top="0"/>
+
             <ComboBox 
-            x:Name ="DiceSide"
-            HorizontalAlignment="Stretch" 
-            VerticalAlignment="Top"
-            Width="200" Canvas.Top="27" Height="26">
+                x:Name ="DiceSide"
+                HorizontalAlignment="Stretch" 
+                VerticalAlignment="Top"
+                Width="200"
+                Canvas.Top="27" 
+                Height="26">
+
                 <System:String>1</System:String>
+
                 <System:String>2</System:String>
+
                 <System:String>3</System:String>
+
                 <System:String>4</System:String>
+
                 <System:String>5</System:String>
+
                 <System:String>6</System:String>
+
             </ComboBox>
+        </Canvas>
+        <Label Content="&#x9;1&#x9;2&#x9;3&#x9;4&#x9;5&#x9;6&#x9;7&#x9;8&#x9;9&#x9;10 " 
+               Grid.Column="1" 
+               HorizontalAlignment="Left"
+               Margin="10,10,0,0" 
+               VerticalAlignment="Top"
+               Width="558"/>
+
+        <Canvas 
+            Name ="gistogram" 
+            Grid.Column="1" 
+            HorizontalAlignment="Left" 
+            Margin="10,118,0,0" 
+            VerticalAlignment="Top" 
+            Width="{Binding ActualWidth, ElementName=TextBox, Mode=OneWay}"
+            Height="300">
+            <Canvas.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFD1D1D1" Offset="1"/>
+                    <GradientStop Color="White"/>
+                </LinearGradientBrush>
+            </Canvas.Background>
+
+            <Button x:Name="rec1" Grid.Column="1" HorizontalAlignment="Left" Height="1" VerticalAlignment="Bottom" Width="30" Canvas.Left="43" Canvas.Bottom="50"/>
+            <Button x:Name="rec2" Grid.Column="1" HorizontalAlignment="Left" Height="1"  VerticalAlignment="Bottom" Width="30" Canvas.Left="90" Canvas.Bottom="50"/>
+            <Button x:Name="rec3" Grid.Column="1" HorizontalAlignment="Left" Height="1" VerticalAlignment="Bottom" Width="30" Canvas.Left="137" Canvas.Bottom="50"/>
+            <Button x:Name="rec4" Grid.Column="1" HorizontalAlignment="Left" Height="1" VerticalAlignment="Bottom" Width="30" Canvas.Left="184" Canvas.Bottom="50"/>
+            <Button x:Name="rec5" Grid.Column="1" HorizontalAlignment="Left" Height="1" VerticalAlignment="Bottom" Width="30" Canvas.Left="236" Canvas.Bottom="50"/>
+            <Button x:Name="rec6" Grid.Column="1" HorizontalAlignment="Left" Height="1" VerticalAlignment="Bottom" Width="30" Canvas.Left="283" Canvas.Bottom="50"/>
+            <Button x:Name="rec7" Grid.Column="1" HorizontalAlignment="Left" Height="1" VerticalAlignment="Bottom" Width="30" Canvas.Left="330" Canvas.Bottom="50"/>
+            <Button x:Name="rec8" Grid.Column="1" HorizontalAlignment="Left" Height="1" VerticalAlignment="Bottom" Width="30" Canvas.Left="377" Canvas.Bottom="50"/>
+            <Button x:Name="rec9" Grid.Column="1" HorizontalAlignment="Left" Height="1" VerticalAlignment="Bottom" Width="30" Canvas.Left="424" Canvas.Bottom="50"/>
+            <Button x:Name="rec10" Grid.Column="1" HorizontalAlignment="Left" Height="1" VerticalAlignment="Bottom" Width="30" Canvas.Left="471" Canvas.Bottom="50"/>
+            <Border x:Name="averageLine" BorderBrush="#FFFF7878" BorderThickness="1" Height="0"  Width="478" Margin="20,0,0,0" />
+            <Label x:Name ="contentLine" Content=" " Width="50" Margin="20,0,0,0" Foreground="#FFFF6767" />
+
+
+
         </Canvas>
 
 
